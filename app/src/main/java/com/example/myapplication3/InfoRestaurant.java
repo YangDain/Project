@@ -20,7 +20,6 @@ public class InfoRestaurant {
         public static final String KEY_NAME     = "Name";
         public static final String KEY_ADDRESS    = "Address";
         public static final String KEY_CALL    = "Call";
-        public static final String KEY_TIME    = "Time";
         public static final String KEY_IMAGE    = "Image";
 
         public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
@@ -28,7 +27,6 @@ public class InfoRestaurant {
                 KEY_NAME + TEXT_TYPE + COMMA_SEP +
                 KEY_ADDRESS + TEXT_TYPE + COMMA_SEP +
                 KEY_CALL + TEXT_TYPE + COMMA_SEP +
-                KEY_TIME + TEXT_TYPE + COMMA_SEP +
                 KEY_IMAGE + TEXT_TYPE +" )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
