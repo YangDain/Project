@@ -52,12 +52,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(InfoRestaurant.Restaurants.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public long updateUserByMethod(String name, String adress, String call, String time, String image) {
+    public long updateUserByMethod(String _id, String name, String address, String call, String time, String image) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
-        values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, adress);
+        values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, address);
         values.put(InfoRestaurant.Restaurants.KEY_CALL, call);
         values.put(InfoRestaurant.Restaurants.KEY_TIME, time);
         values.put(InfoRestaurant.Restaurants.KEY_IMAGE, image);
