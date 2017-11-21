@@ -85,9 +85,9 @@ public class AddRestaurant extends AppCompatActivity {
                 mPhotoFile = new
                         File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                         mPhotoFileName);
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                ImageButton cameraBtn = (ImageButton) findViewById(R.id.cameraBtn);
                 String IMAGE_URL = mPhotoFile.getPath();
-                imageView.setImageURI(Uri.parse(IMAGE_URL));
+                cameraBtn.setImageURI(Uri.parse(IMAGE_URL));
             } else
                 Toast.makeText(getApplicationContext(), "mPhotoFile is null",
                         Toast.LENGTH_SHORT).show();
