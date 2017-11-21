@@ -38,6 +38,7 @@ public class AddRestaurant extends AppCompatActivity {
             }
         });
 
+        // 맛집 등록 버튼 클릭시 AddRestaurant 함수로
         Button addResBtn = (Button) findViewById(R.id.addResBtn);
         addResBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -92,6 +93,7 @@ public class AddRestaurant extends AppCompatActivity {
         }
     }
 
+    // 맛집 등록 버튼을 누를시 실행
     private void AddRestaurant() {
 
     }
