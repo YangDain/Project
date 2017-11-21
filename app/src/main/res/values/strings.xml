@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="sample1">주소 : 서울시 성북구 삼선동</string>
+    <string name="sample2">전화번호 : 023456789</string>
+    <string name="sample3">영업시간 : 9:00 - 21:00</string>
+    <string name="title_activity_add_menu">AddMenu</string>
+</resources>
