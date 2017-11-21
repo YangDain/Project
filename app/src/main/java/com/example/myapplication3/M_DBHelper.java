@@ -60,10 +60,10 @@ public class M_DBHelper extends SQLiteOpenHelper {
         values.put(InfoMenu.Menu.KEY_EXPLAIN, explain);
         values.put(InfoMenu.Menu.KEY_IMAGE, image);
 
-        String whereClause = InfoMenu.menu._ID +" = ?";
+        String whereClause = InfoMenu.Menu._ID +" = ?";
         String[] whereArgs ={_id};
 
-        return db.update(InfoMenu.menu.TABLE_NAME, values, whereClause, whereArgs);
+        return db.update(InfoMenu.Menu.TABLE_NAME, values, whereClause, whereArgs);
     }
 
 
@@ -71,10 +71,10 @@ public class M_DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = String.format("SELECT %s, %s FROM %s WHERE %s = \"%s\" AND %s = \"%s\"",
-                InfoMenu.menu.KEY_NAME, inputName,
-                InfoMenu.menu.KEY_PRICE, inputPrice,
-                InfoMenu.menu.KEY_EXPLAIN, inputExplain,
-                InfoMenu.menu.KEY_IMAGE, inputImage);
+                InfoMenu.Menu.KEY_NAME, inputName,
+                InfoMenu.Menu.KEY_PRICE, inputPrice,
+                InfoMenu.Menu.KEY_EXPLAIN, inputExplain,
+                InfoMenu.Menu.KEY_IMAGE, inputImage);
 
         Cursor result = db.rawQuery(query, null);
 

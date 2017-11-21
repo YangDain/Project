@@ -51,7 +51,7 @@ public class R_DBHelper extends SQLiteOpenHelper {
         return db.delete(InfoRestaurant.Restaurants.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public long updateUserByMethod(String _id, String name, String address, String call, String image) {
+    public long updateRestaurantsByMethod(String _id, String name, String address, String call, String image) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
