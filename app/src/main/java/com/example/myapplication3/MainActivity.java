@@ -30,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button addMenu = (Button) findViewById(R.id.addMenu);
+        addMenu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddMenu.class);
+                startActivity(intent);
+            }
+        });
         Button addRestaurant = (Button) findViewById(R.id.addRestaurant);
         addRestaurant.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -37,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
         ArrayList<MyItem> data = new ArrayList<MyItem>();
         data.add(new MyItem(R.drawable.sample_0, "냉면", "6000"));
