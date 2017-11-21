@@ -30,6 +30,7 @@ public class AddRestaurant extends AppCompatActivity {
 
         checkDangerousPermissions();
 
+        // 카메라 버튼(이미지 버튼) 클릭시 TakeResPictureIntent 함수로
         ImageButton cameraBtn = (ImageButton) findViewById(R.id.cameraBtn);
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -55,22 +56,20 @@ public class AddRestaurant extends AppCompatActivity {
         return currentTimeStamp;
     }
 
+    // 카메라 버튼 클릭시 카메라 어플 실행 후 저장
+    // 10주차 강의자료 참고
     private void TakeResPictureIntent() {
-        Intent takePictureIntent = new
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new  Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takePictureIntent.resolveActivity(getPackageManager())
                 != null) {
-//1. 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
             mPhotoFileName = "IMG" + currentDateFormat() + ".jpg";
             mPhotoFile = new
                     File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                     mPhotoFileName);
             if (mPhotoFile != null) {
-//2. 생성된 파일 객체에 대한 Uri 객체를 얻기
                 Uri imageUri = FileProvider.getUriForFile(this,
                         "com.example.myapplication3",
                         mPhotoFile);
-//3. Uri 객체를 Extras를 통해 카메라 앱으로 전달
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(takePictureIntent,
                         REQUEST_IMAGE_CAPTURE);
