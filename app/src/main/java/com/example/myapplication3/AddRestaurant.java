@@ -28,6 +28,7 @@ public class AddRestaurant extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant);
 
+        // 권한 검사
         checkDangerousPermissions();
 
         // 카메라 버튼(이미지 버튼) 클릭시 TakeResPictureIntent 함수로
@@ -98,13 +99,14 @@ public class AddRestaurant extends AppCompatActivity {
 
     }
 
+    // 권한 검사 함수
     final int REQUEST_EXTERNAL_STORAGE_FOR_MULTIMEDIA=1;
     private void checkDangerousPermissions() {
         String[] permissions = {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
         };
-        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+                int permissionCheck = PackageManager.PERMISSION_GRANTED;
         for (int i = 0; i < permissions.length; i++) {
             permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
             if (permissionCheck == PackageManager.PERMISSION_DENIED) {
