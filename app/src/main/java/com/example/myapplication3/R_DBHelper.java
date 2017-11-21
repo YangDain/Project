@@ -10,9 +10,9 @@ package com.example.myapplication3;
  * 권혁동 튜터님 자료 참고
  */
 
-public class DBHelper extends SQLiteOpenHelper {
+public class R_DBHelper extends SQLiteOpenHelper {
 
-    public DBHelper(Context context) {
+    public R_DBHelper(Context context) {
         super(context, InfoRestaurant.DB_NAME, null, InfoRestaurant.DATABASE_VERSION);
     }
 
@@ -27,13 +27,12 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRestaurantsByMethod(String name, String adress, String call, String time, String image) {
+    public long insertRestaurantsByMethod(String name, String adress, String call, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
         values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, adress);
         values.put(InfoRestaurant.Restaurants.KEY_CALL, call);
-        values.put(InfoRestaurant.Restaurants.KEY_TIME, time);
         values.put(InfoRestaurant.Restaurants.KEY_IMAGE, image);
 
         return db.insert(InfoRestaurant.Restaurants.TABLE_NAME,null,values);
@@ -52,14 +51,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(InfoRestaurant.Restaurants.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public long updateUserByMethod(String _id, String name, String address, String call, String time, String image) {
+    public long updateUserByMethod(String _id, String name, String address, String call, String image) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
         values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, address);
         values.put(InfoRestaurant.Restaurants.KEY_CALL, call);
-        values.put(InfoRestaurant.Restaurants.KEY_TIME, time);
         values.put(InfoRestaurant.Restaurants.KEY_IMAGE, image);
 
         String whereClause = InfoRestaurant.Restaurants._ID +" = ?";
@@ -68,18 +66,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(InfoRestaurant.Restaurants.TABLE_NAME, values, whereClause, whereArgs);
     }
 
-    /*
-    public boolean duplicationCheck(String inputName, String inputPhone) {
+
+    public boolean duplicationCheck(String inputName, String inputAddress, String inputCall, String inputImage) {
         SQLiteDatabase db = getReadableDatabase();
 
         String query = String.format("SELECT %s, %s FROM %s WHERE %s = \"%s\" AND %s = \"%s\"",
-                InfoRestaurant.Restaurants.KEY_NAME,
-                InfoRestaurant.Restaurants.KEY_PHONE,
-                InfoRestaurant.Restaurants.TABLE_NAME,
-                InfoRestaurant.Restaurants.KEY_NAME,
-                inputName,
-                InfoRestaurant.Restaurants.KEY_PHONE,
-                inputPhone);
+                InfoRestaurant.Restaurants.KEY_NAME, inputName,
+                InfoRestaurant.Restaurants.KEY_ADDRESS, inputAddress,
+                InfoRestaurant.Restaurants.KEY_CALL, inputCall,
+                InfoRestaurant.Restaurants.KEY_IMAGE, inputImage);
 
         Cursor result = db.rawQuery(query, null);
 
@@ -90,5 +85,5 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return false;
     }
-    */
+
 }
