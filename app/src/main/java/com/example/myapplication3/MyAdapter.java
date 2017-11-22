@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * Created by win7 on 2017-10-15.
  */
 
-
 class MyItem {
     int mIcon;
     String nName;

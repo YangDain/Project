@@ -12,7 +12,6 @@ public class InfoRestaurant {
     private static final String TEXT_TYPE       = " TEXT";
     private static final String COMMA_SEP       = ",";
 
-
     private InfoRestaurant() {}
 
     public static class Restaurants implements BaseColumns {

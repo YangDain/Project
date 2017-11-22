@@ -27,9 +27,11 @@ public class M_DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertMenuByMethod(String name, String price, String explain, String image) {
+    public long insertMenuByMethod(String restaurant, String name, String price, String explain, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        values.put(InfoMenu.Menu.KEY_RESTAURANT, restaurant);
         values.put(InfoMenu.Menu.KEY_NAME, name);
         values.put(InfoMenu.Menu.KEY_PRICE, price);
         values.put(InfoMenu.Menu.KEY_EXPLAIN, explain);

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddMenu extends AppCompatActivity {
+
+    M_DBHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class AddMenu extends AppCompatActivity {
     private File mPhotoFile = null;
     private String mPhotoFileName = null;
 
+    // 카메라 앱 실행
     private String currentDateFormat(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
         String currentTimeStamp = dateFormat.format(new Date());
@@ -93,10 +97,6 @@ public class AddMenu extends AppCompatActivity {
         }
     }
 
-    private void AddMenu() {
-
-    }
-
     final int REQUEST_EXTERNAL_STORAGE_FOR_MULTIMEDIA=1;
     private void checkDangerousPermissions() {
         String[] permissions = {
@@ -114,6 +114,38 @@ public class AddMenu extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permissions,
                     REQUEST_EXTERNAL_STORAGE_FOR_MULTIMEDIA);
         }
+    }
+
+    private void AddMenu() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+
+        mDbHelper = new M_DBHelper(this);
+
+        String[] addMenuData = addMenuArray();
+        long nOfRows = mDbHelper.insertMenuByMethod(addMenuData[0], addMenuData[1], addMenuData[2], addMenuData[3], addMenuData[4]);
+
+        if (nOfRows >0) {
+            Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
+        }else
+        {Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String[] addMenuArray() {
+        EditText edit_name = (EditText)findViewById(R.id.edit_name);
+        EditText edit_price = (EditText)findViewById(R.id.edit_price);
+        EditText edit_explain = (EditText)findViewById(R.id.edit_explain);
+        ImageButton cameraBtn  = (ImageButton)findViewById(R.id.cameraBtn);
+
+        String restaurant = getIntent().getStringExtra("resName");
+        String name = edit_name.getText().toString();
+        String price = edit_price.getText().toString()+"원";
+        String explain = edit_explain.getText().toString();
+        String image= mPhotoFileName;
+
+        String[] dataArray = {restaurant, name, price, explain, image};
+        return dataArray;
     }
 }
 
