@@ -53,7 +53,7 @@ public class AddMenu extends AppCompatActivity {
     private String mPhotoFileName = null;
 
     // 카메라 앱 실행
-    private String currentDateFormat(){
+    private String currentDateFormat() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
         String currentTimeStamp = dateFormat.format(new Date());
         return currentTimeStamp;
@@ -62,7 +62,7 @@ public class AddMenu extends AppCompatActivity {
     private void TakeMenuPictureIntent() {
         Intent takePictureIntent = new
                 Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePictureIntent.resolveActivity(getPackageManager())
+        if (takePictureIntent.resolveActivity(getPackageManager())
                 != null) {
 //1. 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
             mPhotoFileName = "IMG" + currentDateFormat() + ".jpg";
@@ -97,7 +97,8 @@ public class AddMenu extends AppCompatActivity {
         }
     }
 
-    final int REQUEST_EXTERNAL_STORAGE_FOR_MULTIMEDIA=1;
+    final int REQUEST_EXTERNAL_STORAGE_FOR_MULTIMEDIA = 1;
+
     private void checkDangerousPermissions() {
         String[] permissions = {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -125,14 +126,17 @@ public class AddMenu extends AppCompatActivity {
         String[] addMenuData = addMenuArray();
         long nOfRows = mDbHelper.insertMenuByMethod(addMenuData[0], addMenuData[1], addMenuData[2], addMenuData[3], addMenuData[4]);
 
-        if (nOfRows >0) {
+        startActivity(intent);
+
+        if (nOfRows > 0) {
             Toast.makeText(this, nOfRows + " Record Inserted", Toast.LENGTH_SHORT).show();
-        }else
-        {Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No Record Inserted", Toast.LENGTH_SHORT).show();
         }
     }
 
     private String[] addMenuArray() {
+
         EditText edit_name = (EditText)findViewById(R.id.edit_name);
         EditText edit_price = (EditText)findViewById(R.id.edit_price);
         EditText edit_explain = (EditText)findViewById(R.id.edit_explain);

@@ -51,7 +51,7 @@
                         android:text="연락처" />
 
                     <EditText
-                        android:id="@+id/edit_phone"
+                        android:id="@+id/edit_call"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2" />

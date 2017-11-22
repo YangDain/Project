@@ -2,11 +2,13 @@ package com.example.myapplication3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,6 +46,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Cursor cursor = R_DBHelper.getAllRestaurantsByMethod(); // 전체 레스토랑 정보를 db 에서 가져옴
+        String[] restaurants = new String[cursor.getCount()]; // 레스토랑 이름을 저장하기 위한 String 배열
+        int i = 0;
+
+        while (cursor.moveToNext()) { // 모든 레스토랑 이름을 배열에 저장하는 반복문
+            restaurants[i++] = cursor.getString(1).toString();
+        }
+
+        /* 리스트뷰 강의자료에서 참조 */
+        final ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, restaurants);
+
+        ListView restaurant_list = (ListView)findViewById(R.id.restaurant_list);
+        restaurant_list.setAdapter(adapt);
+
+        restaurant_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), RestarurantDetailActivity.class);
+                intent.putExtra("resName", adapt.getItem(i).toString());
+                startActivity(intent);
+            }
+        });
+    }
+    }
+
+        /*
 
         ArrayList<MyItem> data = new ArrayList<MyItem>();
         data.add(new MyItem(R.drawable.sample_0, "냉면", "6000"));
@@ -114,4 +143,7 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:023456789"));
         startActivity(myIntent);
     }
+
 }
+*/
+

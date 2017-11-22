@@ -27,7 +27,7 @@ public class R_DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRestaurantsByMethod(String name, String adress, String call, String image) {
+    public long insertRestaurantsByMethod(String addResDatum, String name, String adress, String call, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
@@ -38,7 +38,7 @@ public class R_DBHelper extends SQLiteOpenHelper {
         return db.insert(InfoRestaurant.Restaurants.TABLE_NAME,null,values);
     }
 
-    public Cursor getAllRestaurantsByMethod() {
+    public static Cursor getAllRestaurantsByMethod() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(InfoRestaurant.Restaurants.TABLE_NAME,null,null,null,null,null,null);
     }
