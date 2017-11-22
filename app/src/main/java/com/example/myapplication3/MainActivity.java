@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+/*
         Cursor cursor = R_DBHelper.getAllRestaurantsByMethod(); // 전체 레스토랑 정보를 db 에서 가져옴
         String[] restaurants = new String[cursor.getCount()]; // 레스토랑 이름을 저장하기 위한 String 배열
         int i = 0;
@@ -54,25 +56,12 @@ public class MainActivity extends AppCompatActivity {
         while (cursor.moveToNext()) { // 모든 레스토랑 이름을 배열에 저장하는 반복문
             restaurants[i++] = cursor.getString(1).toString();
         }
-
-        /* 리스트뷰 강의자료에서 참조 */
-        final ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, restaurants);
-
-        ListView restaurant_list = (ListView)findViewById(R.id.restaurant_list);
-        restaurant_list.setAdapter(adapt);
-
-        restaurant_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), RestarurantDetailActivity.class);
-                intent.putExtra("resName", adapt.getItem(i).toString());
-                startActivity(intent);
-            }
-        });
     }
-    }
+}
 
-        /*
+
+*/
+
 
         ArrayList<MyItem> data = new ArrayList<MyItem>();
         data.add(new MyItem(R.drawable.sample_0, "냉면", "6000"));
@@ -100,18 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        CharSequence sample1 = getText(R.string.sample1);
-        TextView Address = (TextView)findViewById(R.id.Address);
-        Address.setText(sample1);
-
-        CharSequence sample2 = getText(R.string.sample2);
-        TextView Call = (TextView)findViewById(R.id.Call);
-        Call.setText(sample2);
-
-        CharSequence sample3 = getText(R.string.sample3);
-        TextView Time = (TextView)findViewById(R.id.Time);
-        Time.setText(sample3);
     }
 
     @Override
@@ -145,5 +122,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-*/
+
 

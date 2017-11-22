@@ -119,14 +119,13 @@ public class AddRestaurant extends AppCompatActivity {
     }
 
     // 맛집 등록 버튼을 누를시 실행
+    String[] addResData;
     private void AddRestaurant() {
 
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+        addResData = addResArray();
+        Intent intent = new Intent(this, RestaurantDetail.class);
+        intent.putExtra("resName", addResData[0]);
 
-        mDbHelper = new R_DBHelper(this);
-
-        String[] addResData = addResArray();
         long nOfRows = mDbHelper.insertRestaurantsByMethod(addResData[0], addResData[1], addResData[2], addResData[3], addResData[4]);
 
         startActivity(intent);
@@ -141,18 +140,15 @@ public class AddRestaurant extends AppCompatActivity {
     private String[] addResArray() {
 
         EditText edit_name = (EditText) findViewById(R.id.edit_name);
-        EditText edit_call = (EditText) findViewById(R.id.edit_call);
         EditText edit_address = (EditText) findViewById(R.id.edit_address);
-        ImageButton cameraBtn = (ImageButton) findViewById(R.id.cameraBtn);
+        EditText edit_call = (EditText) findViewById(R.id.edit_call);
 
-
-        String restaurant = getIntent().getStringExtra("resName");
         String name = edit_name.getText().toString();
-        String call = edit_call.getText().toString();
         String address = edit_address.getText().toString();
+        String call = edit_call.getText().toString();
         String image = mPhotoFileName;
 
-        String[] dataArray = {restaurant, name, call, address, image};
+        String[] dataArray = {name, address, call, image};
         return dataArray;
     }
 }

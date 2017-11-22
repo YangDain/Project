@@ -27,23 +27,41 @@ public class R_DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRestaurantsByMethod(String addResDatum, String name, String adress, String call, String image) {
+    public long insertRestaurantsByMethod(String name, String address, String call, String image) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
-        values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, adress);
+        values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, address);
         values.put(InfoRestaurant.Restaurants.KEY_CALL, call);
         values.put(InfoRestaurant.Restaurants.KEY_IMAGE, image);
 
         return db.insert(InfoRestaurant.Restaurants.TABLE_NAME,null,values);
     }
 
-    public static Cursor getAllRestaurantsByMethod() {
+    public Cursor getAllRestaurantsByMethod() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(InfoRestaurant.Restaurants.TABLE_NAME,null,null,null,null,null,null);
     }
 
-    public long deleteRestaurantsByMethod(String _id) {
+    public Cursor getAllRestaurants() {
+        SQLiteDatabase db = getReadableDatabase();
+        String [] projection = {
+                InfoRestaurant.Restaurants._ID,
+                InfoRestaurant.Restaurants.KEY_NAME,
+                InfoRestaurant.Restaurants.KEY_ADDRESS,
+                InfoRestaurant.Restaurants.KEY_CALL,
+                InfoRestaurant.Restaurants.KEY_IMAGE
+        };
+        return db.query(InfoRestaurant.Restaurants.TABLE_NAME,  // 테이블이름
+                projection,         // 프로젝션
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public long deleteRestaurantByMethod(String _id) {
         SQLiteDatabase db = getWritableDatabase();
 
         String whereClause = InfoRestaurant.Restaurants._ID +" = ?";
@@ -51,39 +69,12 @@ public class R_DBHelper extends SQLiteOpenHelper {
         return db.delete(InfoRestaurant.Restaurants.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public long updateRestaurantsByMethod(String _id, String name, String address, String call, String image) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(InfoRestaurant.Restaurants.KEY_NAME, name);
-        values.put(InfoRestaurant.Restaurants.KEY_ADDRESS, address);
-        values.put(InfoRestaurant.Restaurants.KEY_CALL, call);
-        values.put(InfoRestaurant.Restaurants.KEY_IMAGE, image);
-
-        String whereClause = InfoRestaurant.Restaurants._ID +" = ?";
-        String[] whereArgs ={_id};
-
-        return db.update(InfoRestaurant.Restaurants.TABLE_NAME, values, whereClause, whereArgs);
-    }
-
-
-    public boolean duplicationCheck(String inputName, String inputAddress, String inputCall, String inputImage) {
+    public Cursor getRestaurantIDByName(String name){
         SQLiteDatabase db = getReadableDatabase();
-
-        String query = String.format("SELECT %s, %s FROM %s WHERE %s = \"%s\" AND %s = \"%s\"",
-                InfoRestaurant.Restaurants.KEY_NAME, inputName,
-                InfoRestaurant.Restaurants.KEY_ADDRESS, inputAddress,
-                InfoRestaurant.Restaurants.KEY_CALL, inputCall,
-                InfoRestaurant.Restaurants.KEY_IMAGE, inputImage);
-
-        Cursor result = db.rawQuery(query, null);
-
-        Log.d("count result", String.format("%d", result.getCount()));
-
-        if(result.getCount() > 0)
-            return true;
-        else
-            return false;
+        String[] projection = {InfoRestaurant.Restaurants._ID};
+        String selection= InfoRestaurant.Restaurants.KEY_NAME + "=?";    //물어보기
+        String[] selectionArgs ={name};
+        return db.query(InfoRestaurant.Restaurants.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
     }
 
 }

@@ -27,22 +27,17 @@ public class M_DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertMenuByMethod(String restaurant, String name, String price, String explain, String image) {
+    public long insertMenuByMethod(String image, String name, String price, String explain, String restaurant) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(InfoMenu.Menu.KEY_RESTAURANT, restaurant);
+        values.put(InfoMenu.Menu.KEY_IMAGE, image);
         values.put(InfoMenu.Menu.KEY_NAME, name);
         values.put(InfoMenu.Menu.KEY_PRICE, price);
         values.put(InfoMenu.Menu.KEY_EXPLAIN, explain);
-        values.put(InfoMenu.Menu.KEY_IMAGE, image);
+        values.put(InfoMenu.Menu.KEY_RESTAURANT, restaurant);
 
         return db.insert(InfoMenu.Menu.TABLE_NAME,null,values);
-    }
-
-    public Cursor getAllMenuByMethod() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(InfoMenu.Menu.TABLE_NAME,null,null,null,null,null,null);
     }
 
     public long deleteMenuByMethod(String _id) {
@@ -53,39 +48,8 @@ public class M_DBHelper extends SQLiteOpenHelper {
         return db.delete(InfoMenu.Menu.TABLE_NAME, whereClause, whereArgs);
     }
 
-    public long updateMenuByMethod(String _id, String name, String price, String explain, String image) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(InfoMenu.Menu.KEY_NAME, name);
-        values.put(InfoMenu.Menu.KEY_PRICE, price);
-        values.put(InfoMenu.Menu.KEY_EXPLAIN, explain);
-        values.put(InfoMenu.Menu.KEY_IMAGE, image);
-
-        String whereClause = InfoMenu.Menu._ID +" = ?";
-        String[] whereArgs ={_id};
-
-        return db.update(InfoMenu.Menu.TABLE_NAME, values, whereClause, whereArgs);
-    }
-
-
-    public boolean duplicationCheck(String inputName, String inputPrice, String inputExplain, String inputImage) {
+    public Cursor getAllMenuByMethod() {
         SQLiteDatabase db = getReadableDatabase();
-
-        String query = String.format("SELECT %s, %s FROM %s WHERE %s = \"%s\" AND %s = \"%s\"",
-                InfoMenu.Menu.KEY_NAME, inputName,
-                InfoMenu.Menu.KEY_PRICE, inputPrice,
-                InfoMenu.Menu.KEY_EXPLAIN, inputExplain,
-                InfoMenu.Menu.KEY_IMAGE, inputImage);
-
-        Cursor result = db.rawQuery(query, null);
-
-        Log.d("count result", String.format("%d", result.getCount()));
-
-        if(result.getCount() > 0)
-            return true;
-        else
-            return false;
+        return db.query(InfoMenu.Menu.TABLE_NAME,null,null,null,null,null,null);
     }
-
 }
